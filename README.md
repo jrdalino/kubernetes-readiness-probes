@@ -1,8 +1,8 @@
-# kubernetes-readiness-probes
+# Kubernetes Readiness Probes
 
-## Step 12: Implement Readiness Probe Health Checks
+## Step 1: Implement Readiness Probe Health Checks
 
-### Step 12.1: Configure the Probe
+### Step 1.1: Configure the Probe
 ```
 $ cat <<EoF > ~/environment/healthchecks/readiness-deployment.yaml
 apiVersion: apps/v1
@@ -33,25 +33,25 @@ spec:
 EoF
 ```
 
-### Step 12.2: Create a deployment to test readiness probe
+### Step 1.2: Create a deployment to test readiness probe
 ```
 $ kubectl apply -f ~/environment/healthchecks/readiness-deployment.yaml
 $ kubectl get pods -l app=readiness-deployment
 ```
 
-### Step 12.3: Confirm that all the replicas are available to serve traffic when a service is pointed to this deployment
+### Step 1.3: Confirm that all the replicas are available to serve traffic when a service is pointed to this deployment
 ```
 $ kubectl describe deployment readiness-deployment | grep Replicas:
 ```
 
-### Step 12.4: Introduce a Failure
+### Step 1.4: Introduce a Failure
 ```
 $ kubectl exec -it <YOUR-READINESS-POD-NAME> -- rm /tmp/healthy
 $ kubectl get pods -l app=readiness-deployment
 $ kubectl describe deployment readiness-deployment | grep Replicas:
 ```
 
-### Step 12.5: Restore pod to Ready Status
+### Step 1.5: Restore pod to Ready Status
 ```
 $ kubectl exec -it <YOUR-READINESS-POD-NAME> -- touch /tmp/healthy
 $ kubectl get pods -l app=readiness-deployment
